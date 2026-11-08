@@ -1,0 +1,524 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TVHS Cross Country 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout concept: a race-results sheet. One reading column, ruled lists instead of cards, the athlete table as the centerpiece, charts drawn as thin marks on a quiet grid.
+   Color: warm neutrals + two series hues (boys blue, girls orange) that never change meaning. */
+:root {
+  --bg: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink2: #52514e;
+  --muted: #75736d;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --boys: #2a78d6;
+  --girls: #eb6834;
+  --mark: #6e6c66;
+  --good: #006300;
+  --border: rgba(11,11,11,0.10);
+  --wash: #f0efec;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #9a988f;
+    --grid: #2c2c2a; --axis: #383835; --boys: #3987e5; --girls: #d95926; --mark: #a8a69c;
+    --good: #0ca30c; --border: rgba(255,255,255,0.10); --wash: #232322; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #9a988f;
+  --grid: #2c2c2a; --axis: #383835; --boys: #3987e5; --girls: #d95926; --mark: #a8a69c;
+  --good: #0ca30c; --border: rgba(255,255,255,0.10); --wash: #232322; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; margin: 0; text-wrap: balance; line-height: 1; }
+h1 { font-size: clamp(44px, 9vw, 84px); font-weight: 700; }
+h2 { font-size: 30px; font-weight: 700; }
+h3 { font-size: 14px; margin: 0; font-weight: 650; }
+p { margin: 0; }
+a { color: var(--ink); text-underline-offset: 3px; }
+.sub { color: var(--ink2); max-width: 62ch; }
+.overview { color: var(--ink2); font-size: 17px; line-height: 1.55; max-width: none; width: 100%; text-wrap: pretty; }
+.eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); }
+section { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.lede { color: var(--ink2); max-width: 66ch; }
+
+/* header + season timeline */
+header { display: flex; flex-direction: column; gap: 18px; }
+.timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 10px; border-top: 2px solid var(--ink); }
+.tl { padding: 10px 12px 0 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tl b { font-size: 13px; }
+.tl span { font-size: 12.5px; color: var(--ink2); }
+.tl small { font-size: 11.5px; color: var(--muted); }
+.tl.next { opacity: 0.7; }
+.tl.next b::after { content: " (upcoming)"; font-weight: 400; color: var(--muted); }
+@media (max-width: 720px) { .timeline { grid-template-columns: 1fr 1fr; row-gap: 12px; } }
+
+.callout { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; color: var(--ink2); font-size: 14px; display: flex; flex-direction: column; gap: 6px; max-width: 80ch; }
+.callout b { color: var(--ink); }
+
+/* facts: ruled two-column list */
+.facts { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; margin: 0; padding: 0; list-style: none; }
+.facts li { padding: 14px 0; border-top: 1px solid var(--grid); min-width: 0; font-size: 14.5px; color: var(--ink2); }
+.facts li b { color: var(--ink); font-weight: 650; }
+.facts .k { display: block; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+@media (max-width: 760px) { .facts { grid-template-columns: 1fr; } }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.chips { display: inline-flex; gap: 0; border: 1px solid var(--axis); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.chips button { font: inherit; font-size: 13px; padding: 6px 13px; border: 0; background: transparent; color: var(--ink2); cursor: pointer; }
+.chips button + button { border-left: 1px solid var(--axis); }
+.chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.chips button:focus-visible, input:focus-visible, th button:focus-visible, select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+input[type="search"], select { font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--axis); border-radius: 999px; background: var(--surface); color: var(--ink); min-width: 0; }
+input[type="search"] { width: 180px; }
+.count { font-size: 13px; color: var(--ink2); margin-left: auto; }
+.legend { display: inline-flex; gap: 14px; font-size: 13px; color: var(--ink2); align-items: center; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.i-boys { background: var(--boys); } .i-girls { background: var(--girls); }
+
+/* athlete table */
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); }
+th { position: sticky; top: 0; background: var(--surface); font-weight: 600; font-size: 12px; color: var(--ink2); vertical-align: bottom; line-height: 1.25; z-index: 1; border-bottom: 1px solid var(--axis); }
+th button { all: unset; cursor: pointer; display: inline-flex; align-items: flex-end; gap: 4px; text-align: right; }
+th button .ar { font-size: 9px; opacity: 0.35; }
+th[aria-sort="ascending"] .ar, th[aria-sort="descending"] .ar { opacity: 1; }
+th.l, td.l { text-align: left; }
+th small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+td.l { position: sticky; left: 0; background: var(--surface); z-index: 1; font-weight: 550; }
+th.l { left: 0; z-index: 2; }
+tbody tr:hover td { background: var(--wash); }
+.gdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+.gdot.M { background: var(--boys); } .gdot.F { background: var(--girls); }
+.lv { font-size: 10.5px; color: var(--muted); margin-left: 4px; }
+.best { font-weight: 650; }
+.bm { font-size: 10.5px; color: var(--muted); margin-left: 4px; }
+.na { color: var(--axis); }
+.nov { color: var(--muted); font-style: italic; }
+.dcell { display: inline-flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.dbar { display: inline-block; height: 8px; border-radius: 0 4px 4px 0; min-width: 2px; }
+.dbar.M { background: var(--boys); } .dbar.F { background: var(--girls); }
+.fast { color: var(--good); font-weight: 600; }
+.slow { color: var(--ink2); }
+.tnote { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+
+/* charts */
+.chartgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+@media (max-width: 860px) { .chartgrid { grid-template-columns: 1fr; } }
+.chart { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.sv { overflow-x: auto; padding-block: 2px; }
+.chart .ttl { font-size: 14px; font-weight: 650; }
+.chart .cap { font-size: 12.5px; color: var(--muted); }
+svg text { font-family: var(--font-body); fill: var(--ink2); font-size: 11px; }
+svg .t-strong { fill: var(--ink); font-weight: 600; }
+svg .t-muted { fill: var(--muted); }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .axis { stroke: var(--axis); stroke-width: 1; }
+.tip { position: fixed; z-index: 50; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12px; padding: 5px 9px; border-radius: 6px; max-width: 240px; opacity: 0; transition: opacity .08s; font-variant-numeric: tabular-nums; }
+.tip.on { opacity: 1; }
+
+/* team results */
+.results td, .results th { white-space: normal; text-align: left; vertical-align: top; }
+.results td small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+.results td b { font-weight: 650; }
+.results td.mt { font-weight: 600; min-width: 150px; }
+.results td.mt small { font-weight: 400; }
+.results td.l { position: static; }
+.sources { margin: 0; padding-left: 18px; color: var(--ink2); font-size: 14px; display: flex; flex-direction: column; gap: 6px; max-width: 90ch; }
+.notes { margin: 0; padding-left: 18px; color: var(--ink2); font-size: 14px; display: flex; flex-direction: column; gap: 8px; max-width: 90ch; }
+@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Temecula Valley High School · Golden Bears · Southwestern League</div>
+  <h1>TVHS Cross Country 2026</h1>
+  <p class="overview">TVHS held its place in the Southwestern League this season, with the boys third and the girls fifth at league finals, but the real story is improvement underneath those finishes. The girls' scoring five averaged about 2½ minutes per runner faster than last year, 20 of 24 returning athletes ran faster at league finals on the same course, and freshmen gained the most over the season, an average of 1:52 off their opener. This page covers 64 athletes across four meets through November 5: each athlete's season improvement, comparisons with 2025, how the scoring pack ran together, and team results.</p>
+  <div class="timeline" aria-label="Meets covered">
+    <div class="tl"><b>Sep 5</b><span>ASICS Cool Breeze</span><small>Galway Downs · 3 mi</small></div>
+    <div class="tl"><b>Oct 1</b><span>League Preview</span><small>at Temecula Valley · 3 mi</small></div>
+    <div class="tl"><b>Oct 24</b><span>Mt. SAC Invitational</span><small>Saturday D1/D2 · 3 mi</small></div>
+    <div class="tl"><b>Nov 5</b><span>League Championships</span><small>Galway Downs · 3 mi</small></div>
+    <div class="tl next"><b>Nov 13–14</b><span>CIF-SS Prelims</span><small>Mt. SAC · not in this data</small></div>
+  </div>
+</header>
+
+<section id="highlights">
+  <h2>Season highlights</h2>
+  <ul class="facts" id="facts"></ul>
+</section>
+
+<section id="everyone">
+  <h2>How much everyone improved</h2>
+  <p class="lede">Every athlete, every 3-mile race, and the change over the season. Click a column to sort.</p>
+  <div class="controls">
+    <div class="chips" role="group" aria-label="Team" id="chipsG">
+      <button type="button" data-g="all" aria-pressed="true">All</button>
+      <button type="button" data-g="M" aria-pressed="false">Boys</button>
+      <button type="button" data-g="F" aria-pressed="false">Girls</button>
+    </div>
+    <label class="sr" for="gradeSel" style="position:absolute;left:-9999px">Grade</label>
+    <select id="gradeSel"><option value="all">All grades</option><option value="9">9th</option><option value="10">10th</option><option value="11">11th</option><option value="12">12th</option></select>
+    <input type="search" id="q" placeholder="Find an athlete" aria-label="Find an athlete">
+    <span class="legend" aria-hidden="true"><span><i class="i-boys"></i>Boys</span><span><i class="i-girls"></i>Girls</span></span>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="tablewrap">
+    <table id="ath">
+      <thead><tr id="thead"></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p class="tnote">V and JV mark the league races. <i>Italic</i> times in the Preview column are the novice race, which the results list as 2.5 miles; they are not counted in any comparison. Season best is the fastest of the four 3-mile meets, with the meet code beside it (CB Cool Breeze, PV Preview, MS Mt. SAC, LG league finals). Blank means no result found.</p>
+</section>
+
+<section id="grades">
+  <h2>Who improved most</h2>
+  <div class="chartgrid">
+    <div class="chart">
+      <div class="ttl">Average season best vs opener, by grade</div>
+      <div class="cap">Athletes with at least two 3-mile races. Minutes faster than their first race.</div>
+      <div class="sv"><svg id="gradeChart" viewBox="0 0 520 200" style="min-width:440px" role="img" aria-label="Average improvement by grade"></svg></div>
+    </div>
+    <div class="chart">
+      <div class="ttl">What the freshmen did</div>
+      <p class="sub" id="frNote" style="font-size:14px"></p>
+    </div>
+  </div>
+</section>
+
+<section id="yoy">
+  <h2>Versus last year</h2>
+  <p class="lede">Returning athletes at the league finals, same Galway Downs course, Nov 5 2025 and Nov 5 2026. Bars left of zero are faster this year.</p>
+  <div class="chart">
+    <span class="legend" aria-hidden="true"><span><i class="i-boys"></i>Boys</span><span><i class="i-girls"></i>Girls</span></span>
+    <div class="sv"><svg id="yoyChart" style="min-width:720px" role="img" aria-label="League finals time change from 2025 to 2026 for returning athletes"></svg></div>
+    <div class="cap">Time change in minutes:seconds. Some athletes moved between JV and varsity, so a faster time can also mean running a different race. One result is far off scale and is clipped.</div>
+  </div>
+</section>
+
+<section id="pack">
+  <h2>The scoring five</h2>
+  <p class="lede">Each dot is one of TVHS’s five fastest runners at that meet. The tick is their average. The tighter the dots, the better the pack. Higher on the chart is faster. Different meets are different courses, so compare the two league columns directly and read the others as context.</p>
+  <div class="chartgrid">
+    <div class="chart"><div class="ttl">Boys</div><div class="sv"><svg id="stripM" viewBox="0 0 520 350" style="min-width:480px" role="img" aria-label="Boys scoring five by meet"></svg></div></div>
+    <div class="chart"><div class="ttl">Girls</div><div class="sv"><svg id="stripF" viewBox="0 0 520 350" style="min-width:480px" role="img" aria-label="Girls scoring five by meet"></svg></div></div>
+  </div>
+</section>
+
+<section id="teams">
+  <h2>Team results</h2>
+  <div class="tablewrap">
+    <table class="results">
+      <thead><tr><th class="l">Meet</th><th>Boys</th><th>Girls</th></tr></thead>
+      <tbody>
+        <tr><td class="mt l">Cool Breeze<small>Sep 5 · all divisions merged</small></td><td><b>6th of 69 teams</b>, 245 pts<small>Vista Murrieta 9th · Murrieta Valley 10th · Chaparral 21st</small></td><td><b>33rd of 64 teams</b>, 942 pts<small>Murrieta Valley 6th · Vista Murrieta 17th · Chaparral 26th</small></td></tr>
+        <tr><td class="mt l">League Preview<small>Oct 1 · varsity</small></td><td><b>3rd</b>, 66 pts<small>Great Oak 52 · Murrieta Valley 58 · Vista Murrieta 67 · Chaparral 92. JV boys 2nd, 46 pts.</small></td><td><b>5th of 5 scoring teams</b>, 118 pts<small>Great Oak 30 · Murrieta Valley 41 · Vista Murrieta 77 · Chaparral 99. Murrieta Mesa did not score.</small></td></tr>
+        <tr><td class="mt l">Mt. SAC<small>Oct 24 · Saturday merge</small></td><td><b>31st of 190 teams</b>, 1145 pts<small>Great Oak 21st · Murrieta Valley 29th · Chaparral 47th · Vista Murrieta 54th</small></td><td><b>97th of 165 teams</b>, 2800 pts<small>Great Oak 2nd · Murrieta Valley 21st · Vista Murrieta 78th · Chaparral 80th</small></td></tr>
+        <tr><td class="mt l">League finals<small>Nov 5 · varsity</small></td><td><b>3rd</b>, 82 pts<small>Murrieta Valley 41 · Great Oak 59 · Chaparral 84 · Vista Murrieta 92. JV boys 3rd, 74 pts.</small></td><td><b>5th of 5 scoring teams</b>, 113 pts<small>Great Oak 25 · Murrieta Valley 48 · Vista Murrieta 81 · Chaparral 106. JV girls 3rd, 85 pts.</small></td></tr>
+        <tr><td class="mt l">League finals 2025<small>Nov 5, 2025 · varsity</small></td><td><b>3rd</b>, 56 pts<small>Vista Murrieta 44 · Great Oak 51 · Murrieta Valley 82. JV boys 3rd, 90 pts.</small></td><td><b>5th of 5 scoring teams</b>, 144 pts<small>Great Oak 26 · Murrieta Valley 33 · Vista Murrieta 69 · Chaparral 123</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="notes">
+  <h2>Notes and sources</h2>
+  <ul class="notes">
+    <li>Results come from Finished Results timing PDFs for the meets above. Names, grades and times are copied as published. The big files were read more than once, and the numbers were cross-checked: the five fastest TVHS times add up to the official team time at all 13 team results, and place order matches time order everywhere. Spellings were merged when 2025 and 2026 listed the same athlete differently.</li>
+    <li>Not included: any meet I could not find results for, and the CIF-SS Prelims (Nov 13–14) and Finals (Nov 21), which have not happened yet. I could not read the end of the Friday Mt. SAC files; TVHS did not appear in the part I could see. If TVHS ran another meet, those times are missing here.</li>
+    <li>Athletic.net could not be reached from my workspace, so these are not official PRs. “Best vs opener” is the fastest 3-mile time minus the first one, “Same course” compares Cool Breeze with league finals at Galway Downs, and “vs 2025” compares league finals to league finals. Courses and weather differ between meets, so read these as season trends. Minus means faster.</li>
+    <li>A few results sit far outside a runner’s usual range. They are shown as published and count in the averages.</li>
+  </ul>
+  <ol class="sources">
+    <li><a href="https://www.finishedresults.com/meets/14299" target="_blank" rel="noopener">ASICS Cool Breeze Invitational, Sep 5 2026</a></li>
+    <li><a href="https://www.finishedresults.com/meets/16009" target="_blank" rel="noopener">Southwestern League Preview, Oct 1 2026</a></li>
+    <li><a href="https://www.finishedresults.com/meets/14364" target="_blank" rel="noopener">78th Mt. SAC Cross Country Invitational, Oct 23–24 2026</a></li>
+    <li><a href="https://www.finishedresults.com/meets/16020" target="_blank" rel="noopener">Southwestern League Championships, Nov 5 2026</a></li>
+    <li><a href="https://www.finishedresults.com/meets/13409" target="_blank" rel="noopener">Southwestern League Championships, Nov 5 2025</a></li>
+  </ol>
+</section>
+
+<section id="made-with">
+  <div class="callout">
+    <p><b>Made with Claude.</b> This page was put together by Claude, an AI assistant. Every time and score comes from the official timing results linked above, and the figures were cross-checked against the published team totals, but a transcription error is still possible. If a number matters, confirm it against the source results.</p>
+  </div>
+</section>
+
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+const DATA = {"ath": [{"n": "Addison Rouff", "g": "F", "gr": 10, "races": 3, "cb": 1690.2, "pv": null, "pvl": null, "nov": 1798.7, "ms": 1649.4, "lg": 1707.6, "lgl": "JV", "best": 1649.4, "bm": "MS", "open": 1690.2, "om": "CB", "dBest": -40.8, "dCbLg": 17.4, "y25": 1735.8, "y25l": "JV", "dYoy": -28.2, "dBY": -86.4, "y25g": 9}, {"n": "Alana Jones", "g": "F", "gr": 10, "races": 1, "cb": null, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1986.5, "lgl": "JV", "best": 1986.5, "bm": "LG", "open": 1986.5, "om": "LG", "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Alexia Root", "g": "F", "gr": 9, "races": 3, "cb": 1759.1, "pv": null, "pvl": null, "nov": 1577.6, "ms": 1345.9, "lg": 1343.7, "lgl": "V", "best": 1343.7, "bm": "LG", "open": 1759.1, "om": "CB", "dBest": -415.4, "dCbLg": -415.4, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Attley Madewell", "g": "F", "gr": 11, "races": 3, "cb": 1493.3, "pv": null, "pvl": null, "nov": 1593.0, "ms": 1484.6, "lg": 1476.8, "lgl": "JV", "best": 1476.8, "bm": "LG", "open": 1493.3, "om": "CB", "dBest": -16.5, "dCbLg": -16.5, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Avery Tompot", "g": "F", "gr": 9, "races": 2, "cb": 1316.4, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1376.9, "lgl": "V", "best": 1316.4, "bm": "CB", "open": 1316.4, "om": "CB", "dBest": 0.0, "dCbLg": 60.5, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Avonlea Humphrey", "g": "F", "gr": 9, "races": 3, "cb": 1713.8, "pv": null, "pvl": null, "nov": 1581.5, "ms": 1447.0, "lg": 1447.8, "lgl": "JV", "best": 1447.0, "bm": "MS", "open": 1713.8, "om": "CB", "dBest": -266.8, "dCbLg": -266.0, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Emiliana Vargas", "g": "F", "gr": 11, "races": 2, "cb": 1389.5, "pv": 1470.6, "pvl": "V", "nov": null, "ms": null, "lg": null, "lgl": null, "best": 1389.5, "bm": "CB", "open": 1389.5, "om": "CB", "dBest": 0.0, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Erin Chung", "g": "F", "gr": 9, "races": 2, "cb": 1923.9, "pv": null, "pvl": null, "nov": 2080.4, "ms": null, "lg": 1858.6, "lgl": "JV", "best": 1858.6, "bm": "LG", "open": 1923.9, "om": "CB", "dBest": -65.3, "dCbLg": -65.3, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Genesis Salazar Sanchez", "g": "F", "gr": 11, "races": 1, "cb": 1902.1, "pv": null, "pvl": null, "nov": 2149.5, "ms": null, "lg": null, "lgl": null, "best": 1902.1, "bm": "CB", "open": 1902.1, "om": "CB", "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Khaira Samara Cardenas", "g": "F", "gr": 10, "races": 4, "cb": 1399.9, "pv": 1454.5, "pvl": "V", "nov": null, "ms": 1357.2, "lg": 1424.1, "lgl": "V", "best": 1357.2, "bm": "MS", "open": 1399.9, "om": "CB", "dBest": -42.7, "dCbLg": 24.2, "y25": 1548.6, "y25l": "V", "dYoy": -124.5, "dBY": -191.4, "y25g": 9}, {"n": "Leah Guerrero", "g": "F", "gr": 10, "races": 1, "cb": null, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1534.6, "lgl": "JV", "best": 1534.6, "bm": "LG", "open": 1534.6, "om": "LG", "dBest": null, "dCbLg": null, "y25": 1569.2, "y25l": "V", "dYoy": -34.6, "dBY": -34.6, "y25g": 9}, {"n": "Madalynne Reed", "g": "F", "gr": 10, "races": 4, "cb": 1395.9, "pv": 1501.7, "pvl": "V", "nov": null, "ms": 1386.9, "lg": 1477.0, "lgl": "V", "best": 1386.9, "bm": "MS", "open": 1395.9, "om": "CB", "dBest": -9.0, "dCbLg": 81.1, "y25": 1720.2, "y25l": "JV", "dYoy": -243.2, "dBY": -333.3, "y25g": 9}, {"n": "Natalia Pulido Molina", "g": "F", "gr": 10, "races": 3, "cb": 1294.8, "pv": null, "pvl": null, "nov": null, "ms": 1265.4, "lg": 1329.2, "lgl": "V", "best": 1265.4, "bm": "MS", "open": 1294.8, "om": "CB", "dBest": -29.4, "dCbLg": 34.4, "y25": 1467.7, "y25l": "V", "dYoy": -138.5, "dBY": -202.3, "y25g": 9}, {"n": "Natalie Santos", "g": "F", "gr": 10, "races": 4, "cb": 1082.5, "pv": 1108.6, "pvl": "V", "nov": null, "ms": 1073.1, "lg": 1117.7, "lgl": "V", "best": 1073.1, "bm": "MS", "open": 1082.5, "om": "CB", "dBest": -9.4, "dCbLg": 35.2, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Sherly De Leon Francisco", "g": "F", "gr": 12, "races": 2, "cb": null, "pv": null, "pvl": null, "nov": 1734.1, "ms": 1527.9, "lg": 1491.4, "lgl": "JV", "best": 1491.4, "bm": "LG", "open": 1527.9, "om": "MS", "dBest": -36.5, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Sophia Lauer", "g": "F", "gr": 11, "races": 4, "cb": 1235.5, "pv": 1270.1, "pvl": "V", "nov": null, "ms": 1205.2, "lg": 1237.4, "lgl": "V", "best": 1205.2, "bm": "MS", "open": 1235.5, "om": "CB", "dBest": -30.3, "dCbLg": 1.9, "y25": 1294.7, "y25l": "V", "dYoy": -57.3, "dBY": -89.5, "y25g": 10}, {"n": "Yuna Reinholz", "g": "F", "gr": 12, "races": 2, "cb": 1634.5, "pv": null, "pvl": null, "nov": 1667.5, "ms": null, "lg": 1690.2, "lgl": "JV", "best": 1634.5, "bm": "CB", "open": 1634.5, "om": "CB", "dBest": 0.0, "dCbLg": 55.7, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Aaric Blackwell", "g": "M", "gr": 9, "races": 3, "cb": null, "pv": 1161.8, "pvl": "JV", "nov": null, "ms": 1101.5, "lg": 1110.7, "lgl": "JV", "best": 1101.5, "bm": "MS", "open": 1161.8, "om": "PV", "dBest": -60.3, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Aaron Santos", "g": "M", "gr": 9, "races": 2, "cb": 971.8, "pv": 981.9, "pvl": "JV", "nov": null, "ms": null, "lg": null, "lgl": null, "best": 971.8, "bm": "CB", "open": 971.8, "om": "CB", "dBest": 0.0, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Abner Yat", "g": "M", "gr": 12, "races": 3, "cb": 1397.3, "pv": null, "pvl": null, "nov": 1557.8, "ms": 1329.2, "lg": 1292.1, "lgl": "JV", "best": 1292.1, "bm": "LG", "open": 1397.3, "om": "CB", "dBest": -105.2, "dCbLg": -105.2, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Aidan Curtseit", "g": "M", "gr": 9, "races": 4, "cb": 1155.8, "pv": 1168.3, "pvl": "JV", "nov": null, "ms": 1102.0, "lg": 1198.1, "lgl": "JV", "best": 1102.0, "bm": "MS", "open": 1155.8, "om": "CB", "dBest": -53.8, "dCbLg": 42.3, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Alexander Barlis", "g": "M", "gr": 10, "races": 3, "cb": 1367.4, "pv": null, "pvl": null, "nov": null, "ms": 1299.9, "lg": 1283.6, "lgl": "JV", "best": 1283.6, "bm": "LG", "open": 1367.4, "om": "CB", "dBest": -83.8, "dCbLg": -83.8, "y25": 1206.4, "y25l": "JV", "dYoy": 77.2, "dBY": 77.2, "y25g": 9}, {"n": "Andre McLaughlin", "g": "M", "gr": 9, "races": 4, "cb": 1091.4, "pv": 1096.6, "pvl": "JV", "nov": null, "ms": 1054.4, "lg": 1078.9, "lgl": "JV", "best": 1054.4, "bm": "MS", "open": 1091.4, "om": "CB", "dBest": -37.0, "dCbLg": -12.5, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Andrew Stempson", "g": "M", "gr": 12, "races": 4, "cb": 1016.1, "pv": 1054.2, "pvl": "JV", "nov": null, "ms": 1018.1, "lg": 1091.6, "lgl": "JV", "best": 1016.1, "bm": "CB", "open": 1016.1, "om": "CB", "dBest": 0.0, "dCbLg": 75.5, "y25": 1162.1, "y25l": "JV", "dYoy": -70.5, "dBY": -146.0, "y25g": 11}, {"n": "Angelo Rubio", "g": "M", "gr": 10, "races": 4, "cb": 1370.0, "pv": 1431.3, "pvl": "JV", "nov": null, "ms": 1387.5, "lg": 1416.6, "lgl": "JV", "best": 1370.0, "bm": "CB", "open": 1370.0, "om": "CB", "dBest": 0.0, "dCbLg": 46.6, "y25": 1518.3, "y25l": "JV", "dYoy": -101.7, "dBY": -148.3, "y25g": 9}, {"n": "Callen Beane", "g": "M", "gr": 11, "races": 4, "cb": 1164.8, "pv": 1203.3, "pvl": "JV", "nov": null, "ms": 1216.1, "lg": 1168.7, "lgl": "JV", "best": 1164.8, "bm": "CB", "open": 1164.8, "om": "CB", "dBest": 0.0, "dCbLg": 3.9, "y25": 1174.9, "y25l": "JV", "dYoy": -6.2, "dBY": -10.1, "y25g": 10}, {"n": "Carson Price", "g": "M", "gr": 9, "races": 3, "cb": 1327.0, "pv": 1286.1, "pvl": "JV", "nov": null, "ms": null, "lg": 1293.1, "lgl": "JV", "best": 1286.1, "bm": "PV", "open": 1327.0, "om": "CB", "dBest": -40.9, "dCbLg": -33.9, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Colby Parsley", "g": "M", "gr": 10, "races": 4, "cb": 1081.4, "pv": 1083.8, "pvl": "JV", "nov": null, "ms": 1047.4, "lg": 1071.9, "lgl": "JV", "best": 1047.4, "bm": "MS", "open": 1081.4, "om": "CB", "dBest": -34.0, "dCbLg": -9.5, "y25": 1110.0, "y25l": "JV", "dYoy": -38.1, "dBY": -62.6, "y25g": 9}, {"n": "Damian Salas", "g": "M", "gr": 9, "races": 1, "cb": 1390.9, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": null, "lgl": null, "best": 1390.9, "bm": "CB", "open": 1390.9, "om": "CB", "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Daniel Pitman", "g": "M", "gr": 11, "races": 2, "cb": 1521.4, "pv": null, "pvl": null, "nov": 1444.3, "ms": null, "lg": 1367.5, "lgl": "JV", "best": 1367.5, "bm": "LG", "open": 1521.4, "om": "CB", "dBest": -153.9, "dCbLg": -153.9, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Drake O'Brien", "g": "M", "gr": 10, "races": 3, "cb": 1475.2, "pv": null, "pvl": null, "nov": null, "ms": 1376.0, "lg": 1411.1, "lgl": "JV", "best": 1376.0, "bm": "MS", "open": 1475.2, "om": "CB", "dBest": -99.2, "dCbLg": -64.1, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Dylan Smith", "g": "M", "gr": 9, "races": 4, "cb": 1182.1, "pv": 1163.4, "pvl": "JV", "nov": null, "ms": 1178.0, "lg": 1198.0, "lgl": "JV", "best": 1163.4, "bm": "PV", "open": 1182.1, "om": "CB", "dBest": -18.7, "dCbLg": 15.9, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Elijah Daul", "g": "M", "gr": 11, "races": 3, "cb": 952.7, "pv": 957.2, "pvl": "V", "nov": null, "ms": 939.9, "lg": null, "lgl": null, "best": 939.9, "bm": "MS", "open": 952.7, "om": "CB", "dBest": -12.8, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Enrique Lopez", "g": "M", "gr": 12, "races": 3, "cb": 1387.3, "pv": 1408.5, "pvl": "JV", "nov": null, "ms": null, "lg": 1323.2, "lgl": "JV", "best": 1323.2, "bm": "LG", "open": 1387.3, "om": "CB", "dBest": -64.1, "dCbLg": -64.1, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Ethan Rouff", "g": "M", "gr": 12, "races": 4, "cb": 968.9, "pv": 983.1, "pvl": "V", "nov": null, "ms": 958.0, "lg": 987.3, "lgl": "V", "best": 958.0, "bm": "MS", "open": 968.9, "om": "CB", "dBest": -10.9, "dCbLg": 18.4, "y25": 1122.3, "y25l": "JV", "dYoy": -135.0, "dBY": -164.3, "y25g": 11}, {"n": "Gavin Lucich", "g": "M", "gr": 11, "races": 3, "cb": null, "pv": 1203.3, "pvl": "JV", "nov": null, "ms": 1161.5, "lg": 1170.4, "lgl": "JV", "best": 1161.5, "bm": "MS", "open": 1203.3, "om": "PV", "dBest": -41.8, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Grant Thamer", "g": "M", "gr": 12, "races": 4, "cb": 918.5, "pv": 925.2, "pvl": "V", "nov": null, "ms": 938.5, "lg": 941.7, "lgl": "V", "best": 918.5, "bm": "CB", "open": 918.5, "om": "CB", "dBest": 0.0, "dCbLg": 23.2, "y25": 957.4, "y25l": "V", "dYoy": -15.7, "dBY": -38.9, "y25g": 11}, {"n": "Hudson Douvas", "g": "M", "gr": 10, "races": 4, "cb": 983.0, "pv": 1011.7, "pvl": "JV", "nov": null, "ms": 1136.6, "lg": 997.5, "lgl": "JV", "best": 983.0, "bm": "CB", "open": 983.0, "om": "CB", "dBest": 0.0, "dCbLg": 14.5, "y25": 1185.1, "y25l": "JV", "dYoy": -187.6, "dBY": -202.1, "y25g": 9}, {"n": "Jake Ashbery", "g": "M", "gr": 9, "races": 4, "cb": 1173.7, "pv": 1154.4, "pvl": "JV", "nov": null, "ms": 1067.4, "lg": 1174.8, "lgl": "JV", "best": 1067.4, "bm": "MS", "open": 1173.7, "om": "CB", "dBest": -106.3, "dCbLg": 1.1, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Jameson Pelletier", "g": "M", "gr": 9, "races": 2, "cb": 1624.0, "pv": null, "pvl": null, "nov": 1568.5, "ms": null, "lg": 1371.9, "lgl": "JV", "best": 1371.9, "bm": "LG", "open": 1624.0, "om": "CB", "dBest": -252.1, "dCbLg": -252.1, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Jaxon Lange", "g": "M", "gr": 9, "races": 3, "cb": 1392.8, "pv": 1259.8, "pvl": "JV", "nov": null, "ms": 1185.7, "lg": null, "lgl": null, "best": 1185.7, "bm": "MS", "open": 1392.8, "om": "CB", "dBest": -207.1, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Jaxson Price", "g": "M", "gr": 11, "races": 4, "cb": 954.0, "pv": 958.5, "pvl": "V", "nov": null, "ms": 931.3, "lg": 938.2, "lgl": "V", "best": 931.3, "bm": "MS", "open": 954.0, "om": "CB", "dBest": -22.7, "dCbLg": -15.8, "y25": 938.3, "y25l": "V", "dYoy": -0.1, "dBY": -7.0, "y25g": 10}, {"n": "Jayden Goodsir", "g": "M", "gr": 9, "races": 4, "cb": 1146.5, "pv": 1200.8, "pvl": "JV", "nov": null, "ms": 1109.0, "lg": 1147.1, "lgl": "JV", "best": 1109.0, "bm": "MS", "open": 1146.5, "om": "CB", "dBest": -37.5, "dCbLg": 0.6, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Jose Ayala", "g": "M", "gr": 11, "races": 2, "cb": 1345.1, "pv": null, "pvl": null, "nov": 1305.3, "ms": null, "lg": 1383.0, "lgl": "JV", "best": 1345.1, "bm": "CB", "open": 1345.1, "om": "CB", "dBest": 0.0, "dCbLg": 37.9, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Justin Marlbrough", "g": "M", "gr": 10, "races": 3, "cb": null, "pv": 1281.4, "pvl": "JV", "nov": null, "ms": 1308.7, "lg": 1285.6, "lgl": "JV", "best": 1281.4, "bm": "PV", "open": 1281.4, "om": "PV", "dBest": 0.0, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Justin Walters", "g": "M", "gr": 9, "races": 1, "cb": null, "pv": null, "pvl": null, "nov": 1624.3, "ms": null, "lg": 1379.1, "lgl": "JV", "best": 1379.1, "bm": "LG", "open": 1379.1, "om": "LG", "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Landon Hall", "g": "M", "gr": 9, "races": 4, "cb": 1215.1, "pv": 1281.3, "pvl": "JV", "nov": null, "ms": 1191.5, "lg": 1110.6, "lgl": "JV", "best": 1110.6, "bm": "LG", "open": 1215.1, "om": "CB", "dBest": -104.5, "dCbLg": -104.5, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Liam Hincks", "g": "M", "gr": 9, "races": 4, "cb": 1116.8, "pv": 1115.3, "pvl": "JV", "nov": null, "ms": 1052.6, "lg": 1047.3, "lgl": "JV", "best": 1047.3, "bm": "LG", "open": 1116.8, "om": "CB", "dBest": -69.5, "dCbLg": -69.5, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Logan Cool", "g": "M", "gr": 11, "races": 4, "cb": 929.3, "pv": 952.8, "pvl": "V", "nov": null, "ms": 935.5, "lg": 963.4, "lgl": "V", "best": 929.3, "bm": "CB", "open": 929.3, "om": "CB", "dBest": 0.0, "dCbLg": 34.1, "y25": 968.0, "y25l": "V", "dYoy": -4.6, "dBY": -38.7, "y25g": 10}, {"n": "Luke Douglas Jones", "g": "M", "gr": 11, "races": 4, "cb": 1136.1, "pv": 1168.9, "pvl": "JV", "nov": null, "ms": 1120.4, "lg": 1133.5, "lgl": "JV", "best": 1120.4, "bm": "MS", "open": 1136.1, "om": "CB", "dBest": -15.7, "dCbLg": -2.6, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Luke Runkle", "g": "M", "gr": 12, "races": 2, "cb": 1174.7, "pv": 1216.5, "pvl": "JV", "nov": null, "ms": null, "lg": null, "lgl": null, "best": 1174.7, "bm": "CB", "open": 1174.7, "om": "CB", "dBest": 0.0, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Michael Przybylla", "g": "M", "gr": 12, "races": 2, "cb": 2074.5, "pv": null, "pvl": null, "nov": 2110.9, "ms": null, "lg": 2237.5, "lgl": "JV", "best": 2074.5, "bm": "CB", "open": 2074.5, "om": "CB", "dBest": 0.0, "dCbLg": 163.0, "y25": 1598.7, "y25l": "JV", "dYoy": 638.8, "dBY": 475.8, "y25g": 11}, {"n": "Nathaniel Stowe", "g": "M", "gr": 9, "races": 4, "cb": 1266.0, "pv": 1271.7, "pvl": "JV", "nov": null, "ms": 1149.9, "lg": 1238.1, "lgl": "JV", "best": 1149.9, "bm": "MS", "open": 1266.0, "om": "CB", "dBest": -116.1, "dCbLg": -27.9, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Oliver Machado", "g": "M", "gr": 9, "races": 2, "cb": 1346.9, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1293.2, "lgl": "JV", "best": 1293.2, "bm": "LG", "open": 1346.9, "om": "CB", "dBest": -53.7, "dCbLg": -53.7, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Remy Santos", "g": "M", "gr": 12, "races": 4, "cb": 1069.3, "pv": 1072.7, "pvl": "JV", "nov": null, "ms": 1054.1, "lg": 1049.4, "lgl": "JV", "best": 1049.4, "bm": "LG", "open": 1069.3, "om": "CB", "dBest": -19.9, "dCbLg": -19.9, "y25": 1143.1, "y25l": "JV", "dYoy": -93.7, "dBY": -93.7, "y25g": 11}, {"n": "Ricardo Castillo", "g": "M", "gr": 9, "races": 2, "cb": 1515.2, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1292.5, "lgl": "JV", "best": 1292.5, "bm": "LG", "open": 1515.2, "om": "CB", "dBest": -222.7, "dCbLg": -222.7, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Riley Johnson", "g": "M", "gr": 10, "races": 4, "cb": 1348.1, "pv": 1320.4, "pvl": "JV", "nov": null, "ms": 1322.4, "lg": 1286.3, "lgl": "JV", "best": 1286.3, "bm": "LG", "open": 1348.1, "om": "CB", "dBest": -61.8, "dCbLg": -61.8, "y25": 1619.8, "y25l": "JV", "dYoy": -333.5, "dBY": -333.5, "y25g": 9}, {"n": "Sam Austin", "g": "M", "gr": 9, "races": 1, "cb": null, "pv": null, "pvl": null, "nov": null, "ms": null, "lg": 1291.7, "lgl": "JV", "best": 1291.7, "bm": "LG", "open": 1291.7, "om": "LG", "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Sebastian Pablo", "g": "M", "gr": 12, "races": 0, "cb": null, "pv": null, "pvl": null, "nov": 1346.5, "ms": null, "lg": null, "lgl": null, "best": null, "bm": null, "open": null, "om": null, "dBest": null, "dCbLg": null, "y25": null, "y25l": null, "dYoy": null, "dBY": null, "y25g": null}, {"n": "Simon Falconi", "g": "M", "gr": 12, "races": 2, "cb": 1581.8, "pv": null, "pvl": null, "nov": 1549.1, "ms": null, "lg": 1545.1, "lgl": "JV", "best": 1545.1, "bm": "LG", "open": 1581.8, "om": "CB", "dBest": -36.7, "dCbLg": -36.7, "y25": 1339.8, "y25l": "JV", "dYoy": 205.3, "dBY": 205.3, "y25g": 11}, {"n": "Sinjin Dunn", "g": "M", "gr": 12, "races": 4, "cb": 967.3, "pv": 999.8, "pvl": "V", "nov": null, "ms": 1002.6, "lg": 983.9, "lgl": "V", "best": 967.3, "bm": "CB", "open": 967.3, "om": "CB", "dBest": 0.0, "dCbLg": 16.6, "y25": 1013.2, "y25l": "V", "dYoy": -29.3, "dBY": -45.9, "y25g": 11}, {"n": "Thomas McChesney", "g": "M", "gr": 12, "races": 4, "cb": 1175.2, "pv": 1219.2, "pvl": "JV", "nov": null, "ms": 1182.2, "lg": 1220.7, "lgl": "JV", "best": 1175.2, "bm": "CB", "open": 1175.2, "om": "CB", "dBest": 0.0, "dCbLg": 45.5, "y25": 1398.7, "y25l": "JV", "dYoy": -178.0, "dBY": -223.5, "y25g": 11}, {"n": "Trent Kirts", "g": "M", "gr": 10, "races": 4, "cb": 975.5, "pv": 987.6, "pvl": "V", "nov": null, "ms": 944.2, "lg": 974.0, "lgl": "V", "best": 944.2, "bm": "MS", "open": 975.5, "om": "CB", "dBest": -31.3, "dCbLg": -1.5, "y25": 1047.0, "y25l": "JV", "dYoy": -73.0, "dBY": -102.8, "y25g": 9}, {"n": "Wyatt Vaughn", "g": "M", "gr": 10, "races": 4, "cb": 1254.7, "pv": 1258.9, "pvl": "JV", "nov": null, "ms": 1175.1, "lg": 1201.1, "lgl": "JV", "best": 1175.1, "bm": "MS", "open": 1254.7, "om": "CB", "dBest": -79.6, "dCbLg": -53.6, "y25": 1186.2, "y25l": "JV", "dYoy": 14.9, "dBY": -11.1, "y25g": 9}], "strips": {"M": [{"k": "LG25", "label": "2025 league", "sub": "Nov 5, 2025", "rows": [{"n": "Ryan Lopez", "t": 913.8}, {"n": "Jaxson Price", "t": 938.3}, {"n": "Grant Thamer", "t": 957.4}, {"n": "Jordan Marlbrough", "t": 966.8}, {"n": "Logan Cool", "t": 968.0}], "avg": 948.9, "gap": 54.2}, {"k": "CB", "label": "Cool Breeze", "sub": "Sep 5", "rows": [{"n": "Grant Thamer", "t": 918.5}, {"n": "Logan Cool", "t": 929.3}, {"n": "Elijah Daul", "t": 952.7}, {"n": "Jaxson Price", "t": 954.0}, {"n": "Sinjin Dunn", "t": 967.3}], "avg": 944.4, "gap": 48.8}, {"k": "PV", "label": "League Preview", "sub": "Oct 1", "rows": [{"n": "Grant Thamer", "t": 925.2}, {"n": "Logan Cool", "t": 952.8}, {"n": "Elijah Daul", "t": 957.2}, {"n": "Jaxson Price", "t": 958.5}, {"n": "Ethan Rouff", "t": 983.1}], "avg": 955.4, "gap": 57.9}, {"k": "MS", "label": "Mt. SAC", "sub": "Oct 24", "rows": [{"n": "Jaxson Price", "t": 931.3}, {"n": "Logan Cool", "t": 935.5}, {"n": "Grant Thamer", "t": 938.5}, {"n": "Elijah Daul", "t": 939.9}, {"n": "Trent Kirts", "t": 944.2}], "avg": 937.9, "gap": 12.9}, {"k": "LG", "label": "League finals", "sub": "Nov 5", "rows": [{"n": "Jaxson Price", "t": 938.2}, {"n": "Grant Thamer", "t": 941.7}, {"n": "Logan Cool", "t": 963.4}, {"n": "Trent Kirts", "t": 974.0}, {"n": "Sinjin Dunn", "t": 983.9}], "avg": 960.2, "gap": 45.7}], "F": [{"k": "LG25", "label": "2025 league", "sub": "Nov 5, 2025", "rows": [{"n": "Ana Arias", "t": 1294.1}, {"n": "Sophia Lauer", "t": 1294.7}, {"n": "Natalia Pulido Molina", "t": 1467.7}, {"n": "Khaira Samara Cardenas", "t": 1548.6}, {"n": "Victoria Root", "t": 1565.4}], "avg": 1434.1, "gap": 271.3}, {"k": "CB", "label": "Cool Breeze", "sub": "Sep 5", "rows": [{"n": "Natalie Santos", "t": 1082.5}, {"n": "Sophia Lauer", "t": 1235.5}, {"n": "Natalia Pulido Molina", "t": 1294.8}, {"n": "Avery Tompot", "t": 1316.4}, {"n": "Emiliana Vargas", "t": 1389.5}], "avg": 1263.7, "gap": 307.0}, {"k": "PV", "label": "League Preview", "sub": "Oct 1", "rows": [{"n": "Natalie Santos", "t": 1108.6}, {"n": "Sophia Lauer", "t": 1270.1}, {"n": "Khaira Samara Cardenas", "t": 1454.5}, {"n": "Emiliana Vargas", "t": 1470.6}, {"n": "Madalynne Reed", "t": 1501.7}], "avg": 1361.1, "gap": 393.1}, {"k": "MS", "label": "Mt. SAC", "sub": "Oct 24", "rows": [{"n": "Natalie Santos", "t": 1073.1}, {"n": "Sophia Lauer", "t": 1205.2}, {"n": "Natalia Pulido Molina", "t": 1265.4}, {"n": "Alexia Root", "t": 1345.9}, {"n": "Khaira Samara Cardenas", "t": 1357.2}], "avg": 1249.4, "gap": 284.1}, {"k": "LG", "label": "League finals", "sub": "Nov 5", "rows": [{"n": "Natalie Santos", "t": 1117.7}, {"n": "Sophia Lauer", "t": 1237.4}, {"n": "Natalia Pulido Molina", "t": 1329.2}, {"n": "Alexia Root", "t": 1343.7}, {"n": "Avery Tompot", "t": 1376.9}], "avg": 1281.0, "gap": 259.2}]}};
+const ATH = DATA.ath, STR = DATA.strips;
+
+/* ---------- helpers ---------- */
+function fmt(s) { if (s == null) return ""; s = Math.round(s * 10) / 10; const m = Math.floor(s / 60); const r = s - 60 * m; return m + ":" + (r < 10 ? "0" : "") + r.toFixed(1); }
+function fmtD(s) { if (s == null) return ""; const a = Math.abs(s); const t = fmt(a); return (s < 0 ? "−" : s > 0 ? "+" : "") + t; }
+function fmtS(s) { s = Math.round(s); const m = Math.floor(s / 60), r = s - 60 * m; return m + ":" + (r < 10 ? "0" : "") + r; }
+function fmtM(s) { const a = Math.abs(s); const m = Math.floor(a / 60), r = Math.round(a - 60 * m); return (s < 0 ? "−" : "") + m + ":" + (r < 10 ? "0" : "") + r; }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+const svgNS = "http://www.w3.org/2000/svg";
+const CODE = { CB: "CB", PV: "PV", MS: "MS", LG: "LG" };
+
+/* ---------- tooltip ---------- */
+const tip = document.getElementById("tip");
+function bindTip(el, html) {
+  const show = e => { tip.innerHTML = html; tip.classList.add("on"); move(e); };
+  const move = e => {
+    const x = (e.clientX != null ? e.clientX : el.getBoundingClientRect().left) + 14;
+    const y = (e.clientY != null ? e.clientY : el.getBoundingClientRect().top) + 14;
+    tip.style.left = Math.min(x, window.innerWidth - 250) + "px"; tip.style.top = y + "px";
+  };
+  el.addEventListener("pointerenter", show); el.addEventListener("pointermove", move);
+  el.addEventListener("pointerleave", () => tip.classList.remove("on"));
+  el.addEventListener("focus", () => { tip.innerHTML = html; tip.classList.add("on"); const r = el.getBoundingClientRect(); tip.style.left = (r.left + 14) + "px"; tip.style.top = (r.bottom + 6) + "px"; });
+  el.addEventListener("blur", () => tip.classList.remove("on"));
+}
+function mk(tag, attrs, parent) {
+  const e = document.createElementNS(svgNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, cls, anchor) { const t = mk("text", { x, y, class: cls || "", "text-anchor": anchor || "start" }, parent); t.textContent = s; return t; }
+
+/* ---------- highlights ---------- */
+const multi = ATH.filter(a => a.races >= 2 && a.dBest != null);
+const mean = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
+function byGrade(g) { return multi.filter(a => a.gr === g); }
+const fr = byGrade(9), sr = byGrade(12);
+const faster = multi.filter(a => a.dBest < 0).length;
+const totalShaved = multi.reduce((p, a) => p + (-a.dBest), 0);
+const bestMeetCount = {}; multi.forEach(a => { bestMeetCount[a.bm] = (bestMeetCount[a.bm] || 0) + 1; });
+const yoy = ATH.filter(a => a.dYoy != null);
+const yoyFaster = yoy.filter(a => a.dYoy < 0).length;
+const boysN = ATH.filter(a => a.g === "M").length, girlsN = ATH.filter(a => a.g === "F").length;
+const bothMS = ATH.filter(a => a.cb && a.ms);
+const girlsMS = bothMS.filter(a => a.g === "F"), boysMS = bothMS.filter(a => a.g === "M");
+const root = ATH.find(a => a.n === "Alexia Root");
+const fiveBoys = STR.M.find(s => s.k === "MS");
+const rj = ATH.find(a => a.n === "Riley Johnson"), mr = ATH.find(a => a.n === "Madalynne Reed"), hd = ATH.find(a => a.n === "Hudson Douvas");
+const er = ATH.find(a => a.n === "Ethan Rouff"), tk = ATH.find(a => a.n === "Trent Kirts");
+const gt = ATH.find(a => a.n === "Grant Thamer");
+const sub16 = ATH.filter(a => a.g === "M" && a.best && a.best < 960).sort((a, b) => a.best - b.best);
+const sub17 = ATH.filter(a => a.g === "M" && a.best && a.best < 1020).length;
+const ns = ATH.find(a => a.n === "Natalie Santos");
+const gAvg25 = STR.F[0].avg, gAvg26 = STR.F[4].avg, bAvg25 = STR.M[0].avg, bAvg26 = STR.M[4].avg;
+
+const facts = [
+  ["Biggest drop on the same course",
+   `<b>${esc(root.n)}</b> (9th) ran ${fmt(root.cb)} at Cool Breeze and ${fmt(root.lg)} at league finals on the same Galway Downs course, <b>${fmtM(-root.dCbLg)} faster</b>, and scored for the varsity girls.`],
+  ["Freshmen set the pace of improvement",
+   `${ATH.filter(a => a.gr === 9).length} of ${ATH.length} athletes are freshmen. The ${fr.length} with two or more 3-mile races cut an average of <b>${fmtM(-mean(fr.map(a => a.dBest)))}</b> off their opener, against ${fmtM(-mean(sr.map(a => a.dBest)))} for the ${sr.length} seniors.`],
+  ["A pack that ran together at Mt. SAC",
+   `The boys’ top five finished within <b>${fiveBoys.gap.toFixed(1)} seconds</b> of each other (15:31.3 to 15:44.2) at 5:13 per mile, and the team placed 31st of 190.`],
+  ["Mt. SAC was a fast day for the girls",
+   `All <b>${girlsMS.length} of ${girlsMS.length}</b> girls who ran both Cool Breeze and Mt. SAC were faster at Mt. SAC, by ${fmtM(-mean(girlsMS.map(a => a.ms - a.cb)))} on average. ${boysMS.filter(a => a.ms < a.cb).length} of ${boysMS.length} boys were faster too. Different courses, so read it as a trend.`],
+  ["Girls versus last year",
+   `Girls were 5th at league finals both years, but the scoring five averaged <b>${fmtS(gAvg26)} against ${fmtS(gAvg25)}</b>, about ${fmtM(gAvg25 - gAvg26)} per runner faster, and the score dropped from 144 to 113 points.`],
+  ["Boys hold third",
+   `Third again at league finals (82 pts vs 56). The scoring five averaged ${fmtS(bAvg26)} against ${fmtS(bAvg25)}, and three of last year’s top seven (Ryan Lopez, Jordan Marlbrough, Julio Sanchez) are not in this year’s results.`],
+  ["Close calls",
+   `The boys took third at league finals by <b>2 points</b> over Chaparral (82 to 84) and finished <b>1 point</b> ahead of Vista Murrieta at the Preview (66 to 67).`],
+  ["Sub-16 club",
+   `${sub16.length} boys have broken 16:00 for 3 miles: ${sub16.map(a => esc(a.n.split(" ").slice(-1)[0]) + " " + fmt(a.best)).join(", ")}. ${sub17} boys are under 17:00. The fastest girl is <b>${esc(ns.n)}</b>, ${fmt(ns.best)} at Mt. SAC, 3rd at the Preview and 5th at league finals.`],
+  ["Returning athletes got faster",
+   `${yoyFaster} of ${yoy.length} returning athletes ran faster at league finals than a year ago on the same course. Biggest gains: ${esc(rj.n)} (${fmtD(rj.dYoy)}), ${esc(mr.n)} (${fmtD(mr.dYoy)}), ${esc(hd.n)} (${fmtD(hd.dYoy)}). ${esc(er.n)} went from a JV ${fmt(er.y25)} to a varsity ${fmt(er.lg)}.`],
+  ["Where the season bests landed",
+   `Of ${multi.length} athletes with two or more races, ${bestMeetCount.MS || 0} ran their fastest at Mt. SAC, ${bestMeetCount.LG || 0} at league finals, ${bestMeetCount.CB || 0} at Cool Breeze and ${bestMeetCount.PV || 0} at the Preview. ${faster} of ${multi.length} beat their opener. Together they cut <b>${Math.floor(totalShaved / 60)} min ${Math.round(totalShaved % 60)} s</b> from their openers.`],
+  ["Steadiest runners",
+   `<b>${esc(gt.n)}</b> ran all four 3-mile races within 23.2 seconds (15:18.5 to 15:41.7). Elijah Daul ran three within 17.3 seconds.`],
+  ["Size of the squad",
+   `${ATH.length} athletes (${boysN} boys, ${girlsN} girls) in 207 race entries across the four meets. Only ${ATH.filter(a => a.races === 4).length} ran all four 3-mile meets.`]
+];
+document.getElementById("facts").innerHTML = facts.map(f => `<li><span class="k">${f[0]}</span>${f[1]}</li>`).join("");
+
+/* ---------- athlete table ---------- */
+const COLS = [
+  { k: "n", label: "Athlete", cls: "l", get: a => a.n, sortv: a => a.n, str: true },
+  { k: "gr", label: "Gr", get: a => a.gr, sortv: a => a.gr },
+  { k: "cb", label: "Cool Breeze", sub: "Sep 5", sortv: a => a.cb },
+  { k: "pv", label: "Preview", sub: "Oct 1", sortv: a => a.pv },
+  { k: "ms", label: "Mt. SAC", sub: "Oct 24", sortv: a => a.ms },
+  { k: "lg", label: "League", sub: "Nov 5", sortv: a => a.lg },
+  { k: "best", label: "Season best", sortv: a => a.best },
+  { k: "dBest", label: "Best vs opener", sub: "− = faster", sortv: a => a.dBest },
+  { k: "dCbLg", label: "Same course", sub: "Sep 5 to Nov 5", sortv: a => a.dCbLg },
+  { k: "y25", label: "League 2025", sortv: a => a.y25 },
+  { k: "dYoy", label: "vs 2025", sub: "league to league", sortv: a => a.dYoy }
+];
+let state = { g: "all", grade: "all", q: "", sort: "dBest", dir: 1 };
+const maxBar = Math.max(...multi.map(a => -a.dBest));
+
+function dcell(v, g, withBar) {
+  if (v == null) return `<span class="na">–</span>`;
+  const cls = v < 0 ? "fast" : "slow";
+  const bar = withBar && v < 0 ? `<span class="dbar ${g}" style="width:${Math.max(2, Math.round(70 * (-v) / maxBar))}px"></span>` : "";
+  return `<span class="dcell">${bar}<span class="${cls}">${fmtD(v)}</span></span>`;
+}
+function tcell(v, lv) { return v == null ? `<span class="na">–</span>` : `${fmt(v)}${lv ? `<span class="lv">${lv}</span>` : ""}`; }
+
+function renderHead() {
+  document.getElementById("thead").innerHTML = COLS.map(c => {
+    const sorted = state.sort === c.k;
+    const aria = sorted ? (state.dir === 1 ? "ascending" : "descending") : "none";
+    const arrow = sorted ? (state.dir === 1 ? "▲" : "▼") : "▲▼";
+    return `<th class="${c.cls || ""}" aria-sort="${aria}"><button type="button" data-k="${c.k}">${c.label}${c.sub ? `<small>${c.sub}</small>` : ""}<span class="ar">${arrow}</span></button></th>`;
+  }).join("");
+}
+function renderBody() {
+  const col = COLS.find(c => c.k === state.sort);
+  let rows = ATH.filter(a =>
+    (state.g === "all" || a.g === state.g) &&
+    (state.grade === "all" || String(a.gr) === state.grade) &&
+    (!state.q || a.n.toLowerCase().includes(state.q)));
+  rows.sort((a, b) => {
+    const x = col.sortv(a), y = col.sortv(b);
+    if (x == null && y == null) return a.n.localeCompare(b.n);
+    if (x == null) return 1; if (y == null) return -1;
+    if (col.str) return state.dir * x.localeCompare(y);
+    return state.dir * (x - y) || a.n.localeCompare(b.n);
+  });
+  document.getElementById("tbody").innerHTML = rows.map(a => {
+    const pv = a.pv != null ? tcell(a.pv, a.pvl) : (a.nov != null ? `<span class="nov" title="Novice race, listed as 2.5 mi; not counted">${fmt(a.nov)}</span>` : `<span class="na">–</span>`);
+    const bestCell = a.best != null ? `<span class="best">${fmt(a.best)}</span><span class="bm">${a.bm}</span>` : `<span class="na">–</span>`;
+    const y25 = a.y25 != null ? `${fmt(a.y25)}<span class="lv">${a.y25l}</span>` : `<span class="na">–</span>`;
+    return `<tr>
+      <td class="l"><span class="gdot ${a.g}"></span>${esc(a.n)}</td>
+      <td>${a.gr}</td>
+      <td>${tcell(a.cb)}</td><td>${pv}</td><td>${tcell(a.ms)}</td><td>${tcell(a.lg, a.lgl)}</td>
+      <td>${bestCell}</td>
+      <td>${dcell(a.dBest, a.g, true)}</td>
+      <td>${dcell(a.dCbLg, a.g, false)}</td>
+      <td>${y25}</td>
+      <td>${dcell(a.dYoy, a.g, false)}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("count").textContent = rows.length + " athlete" + (rows.length === 1 ? "" : "s");
+}
+function render() { renderHead(); renderBody(); }
+document.getElementById("thead").addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]"); if (!b) return;
+  const k = b.dataset.k;
+  if (state.sort === k) state.dir = -state.dir; else { state.sort = k; state.dir = 1; }
+  render();
+});
+document.getElementById("chipsG").addEventListener("click", e => {
+  const b = e.target.closest("button[data-g]"); if (!b) return;
+  state.g = b.dataset.g;
+  document.querySelectorAll("#chipsG button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  renderBody();
+});
+document.getElementById("gradeSel").addEventListener("change", e => { state.grade = e.target.value; renderBody(); });
+document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderBody(); });
+render();
+
+/* ---------- grade chart ---------- */
+(function () {
+  const svg = document.getElementById("gradeChart");
+  const W = 520, rowH = 40, left = 92, right = 90, top = 6;
+  const data = [9, 10, 11, 12].map(g => { const l = byGrade(g); return { g, n: l.length, v: -mean(l.map(a => a.dBest)) }; });
+  const max = Math.ceil(Math.max(...data.map(d => d.v)) / 30) * 30;
+  const x = v => left + (W - left - right) * v / max;
+  svg.setAttribute("viewBox", `0 0 ${W} ${top + rowH * 4 + 30}`);
+  for (let t = 0; t <= max; t += 30) {
+    mk("line", { x1: x(t), x2: x(t), y1: top, y2: top + rowH * 4, class: t === 0 ? "axis" : "grid" }, svg);
+    txt(svg, x(t), top + rowH * 4 + 16, t === 0 ? "0" : fmtM(t).replace("−", ""), "t-muted", "middle");
+  }
+  data.forEach((d, i) => {
+    const y = top + i * rowH + 9;
+    txt(svg, left - 12, y + 13, d.g + "th grade", "t-strong", "end");
+    const w = x(d.v) - x(0);
+    const r = mk("rect", { x: x(0), y, width: Math.max(w, 2), height: 20, rx: 4, fill: "var(--mark)", tabindex: 0 }, svg);
+    mk("rect", { x: x(0), y, width: 4, height: 20, fill: "var(--mark)" }, svg);
+    txt(svg, x(d.v) + 8, y + 14, fmtM(d.v) + " faster", "t-strong");
+    txt(svg, x(d.v) + 8, y + 27, "n = " + d.n, "t-muted");
+    bindTip(r, `${d.g}th grade: ${fmtM(d.v)} faster on average (n = ${d.n})`);
+  });
+  const frNote = document.getElementById("frNote");
+  const top3 = fr.slice().sort((a, b) => a.dBest - b.dBest).slice(0, 3);
+  frNote.innerHTML = `The ${fr.length} freshmen with two or more 3-mile races dropped ${fmtM(-mean(fr.map(a => a.dBest)))} on average, the largest of any grade. The biggest freshman moves: ${top3.map(a => `${esc(a.n)} (${fmt(a.open)} to ${fmt(a.best)}, ${fmtD(a.dBest)})`).join("; ")}.`;
+})();
+
+/* ---------- year over year chart ---------- */
+(function () {
+  const svg = document.getElementById("yoyChart");
+  const rows = yoy.slice().sort((a, b) => a.dYoy - b.dYoy);
+  const W = 860, rowH = 24, left = 190, right = 140, top = 8, lim = 360;
+  const H = top + rows.length * rowH + 34;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const x = v => left + (W - left - right) * (Math.max(-lim, Math.min(lim, v)) + lim) / (2 * lim);
+  for (let t = -lim; t <= lim; t += 120) {
+    mk("line", { x1: x(t), x2: x(t), y1: top, y2: top + rows.length * rowH, class: t === 0 ? "axis" : "grid" }, svg);
+    txt(svg, x(t), top + rows.length * rowH + 16, t === 0 ? "0" : (t < 0 ? "−" : "+") + Math.abs(t) / 60 + ":00", "t-muted", "middle");
+  }
+  rows.forEach((a, i) => {
+    const y = top + i * rowH;
+    const col = a.g === "M" ? "var(--boys)" : "var(--girls)";
+    const x0 = x(0), x1 = x(a.dYoy), clipped = Math.abs(a.dYoy) > lim;
+    const bx = Math.min(x0, x1), bw = Math.max(Math.abs(x1 - x0), 2);
+    txt(svg, left - 12, y + 15, `${a.n}`, "t-strong", "end");
+    const g = mk("g", { tabindex: 0 }, svg);
+    mk("rect", { x: bx, y: y + 5, width: bw, height: 14, rx: 3, fill: col }, g);
+    mk("rect", { x: a.dYoy < 0 ? x0 - 3 : x0, y: y + 5, width: 3, height: 14, fill: col }, g);
+    if (clipped) { mk("rect", { x: x1 - 12, y: y + 3, width: 3, height: 18, fill: "var(--surface)", transform: `rotate(20 ${x1 - 10} ${y + 12})` }, g); }
+    const lx = a.dYoy < 0 ? x0 + 8 : bx + bw + 8;
+    txt(svg, lx, y + 15, fmtD(a.dYoy) + (clipped ? " (off scale)" : ""), "t-strong", "start");
+    mk("rect", { x: 0, y, width: W, height: rowH, fill: "transparent" }, g);
+    bindTip(g, `${esc(a.n)} (${a.y25g}th to ${a.gr}th)<br>2025 ${fmt(a.y25)} ${a.y25l} → 2026 ${fmt(a.lg)} ${a.lgl}<br>${fmtD(a.dYoy)}`);
+  });
+})();
+
+/* ---------- strip charts ---------- */
+function strip(id, g, color) {
+  const svg = document.getElementById(id);
+  const cols = STR[g];
+  const W = 520, H = 350, left = 52, right = 8, top = 12, bottom = 76;
+  const all = cols.flatMap(c => c.rows.map(r => r.t));
+  const step = g === "M" ? 15 : 120;
+  const lo = Math.floor((Math.min(...all) - 6) / step) * step, hi = Math.ceil((Math.max(...all) + 6) / step) * step;
+  const y = v => top + (H - top - bottom) * (v - lo) / (hi - lo);
+  const n = cols.length, cw = (W - left - right) / n;
+  const cx = i => left + cw * (i + 0.5);
+  for (let t = lo; t <= hi + 0.1; t += step) {
+    mk("line", { x1: left, x2: W - right, y1: y(t), y2: y(t), class: "grid" }, svg);
+    txt(svg, left - 8, y(t) + 4, fmtM(t), "t-muted", "end");
+  }
+  mk("line", { x1: left, x2: W - right, y1: H - bottom, y2: H - bottom, class: "axis" }, svg);
+  mk("line", { x1: left + cw, x2: left + cw, y1: top, y2: H - bottom + 6, class: "axis" }, svg);
+  cols.forEach((c, i) => {
+    const X = cx(i);
+    txt(svg, X, H - bottom + 20, c.label, "t-strong", "middle");
+    txt(svg, X, H - bottom + 34, c.sub, "t-muted", "middle");
+    const ya = y(c.avg);
+    mk("line", { x1: X - 26, x2: X + 26, y1: ya, y2: ya, stroke: "var(--ink2)", "stroke-width": 2, "stroke-linecap": "round" }, svg);
+    c.rows.forEach((r, j) => {
+      const dx = (j % 2 ? 7 : -7);
+      const d = mk("circle", { cx: X + dx, cy: y(r.t), r: 5, fill: color, stroke: "var(--surface)", "stroke-width": 2, tabindex: 0 }, svg);
+      bindTip(d, `${esc(r.n)}<br>${fmt(r.t)} · ${c.label}`);
+    });
+    txt(svg, X, H - bottom + 50, "avg " + fmtS(c.avg), "t-strong", "middle");
+  });
+}
+strip("stripM", "M", "var(--boys)");
+strip("stripF", "F", "var(--girls)");
+</script>
+
+</body></html>
